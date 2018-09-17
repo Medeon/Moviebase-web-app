@@ -1,12 +1,75 @@
+<!DOCTYPE html>
+{% load static %}
 <html>
-	<body>
-        <form action="" name="search">
-        	<input type="text" name="query" value="{{request.GET.query}}"/>
-            <input type="submit" value="Search" />
-        </form>
-		{% for movie in search_result %}
-            <p>{{ movie.fields.Name }}</p>
-            <img src="{{ movie.fields.Pictures.0.url }}" alt="" />
-        {% endfor %}
-	</body>
+	<head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" />
+        <!-- bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="{% static 'movies/app.css' %}" />
+    </head>
+    <body>
+        <div class="wrapper">
+        	<nav class="nav">
+        		<div class="container">
+        			<div class="nav__menu">
+        				<a href="/" class="nav__header">movie base</a>
+                        <div class="col-md-5 pull-right">
+                        	<form action="" class="form-inline" name="search">
+                        		<div class="form-group">
+                        			<input type="text" name="query" class="form-control" value="{{request.GET.query}}"/>
+                                    <input type="submit" class="btn btn-primary" value="Search"/>
+                        		</div>
+                        	</form>
+                        </div>
+                        <div type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#modal-create">Add movie</div>
+        			</div>
+        		</div>
+        	</nav>
+
+            <section class="result">
+            	<div class="container">
+
+                    <!-- Show notifications (if any) -->
+                    {% if messages %}
+                    	{% for message in messages %}
+                    		<div class="alert alert-{{ message.tags }}">
+                    			<a href="#" class="close" data-dismiss="alert">&times;</a>
+	                    		{{ message }}
+                    		</div>
+                    	{% endfor %}
+                    {% endif %}
+
+                    <!-- Show all movies -->
+            		<div class="movies">
+            			{% for movie in search_result %}
+                        	<div class="movies__item">
+                                <i class="movies__item-star fa fa-star-o hide"></i>
+                                <p class="movies__item-rating hide">{{ movie.fields.Rating }}/10</p>
+                                <button type="button" class="movies__item-expander hide" data-toggle="modal" data-target="#modal-{{movie.id}}">Details</button>
+                        		<img class="movies__item-image" src="{{ movie.fields.Pictures.0.url }}" alt="" />
+                                <div class="movies__item-title">
+                                	<p><h4>{{ movie.fields.Name }}<h4/></p>
+                                </div>
+                        	</div>
+                        	{% include 'movies/detail-modal.html' %}
+                        	{% include 'movies/edit-modal.html' %}
+                        {% endfor %}
+            		</div>
+            	</div>
+            </section>
+
+        </div>
+
+        {% include "movies/create-modal.html" %}
+
+
+
+
+        <!-- JAVASCRIPTS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="{% static 'movies/app.js' %}"></script>
+    </body>
 </html>
