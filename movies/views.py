@@ -8,6 +8,7 @@ AT = Airtable(os.environ.get('AIRTABLE_MOVIESTABLE_BASE_ID'),
               'Movies',
               api_key=os.environ.get('AIRTABLE_API_KEY'))
 
+
 # Create your views here.
 def home_page(request):
     user_query = str(request.GET.get('query', ''))
@@ -15,6 +16,7 @@ def home_page(request):
     #context dictionary to send over to the frontend
     stuff_for_frontend = {'search_result': search_result}
     return render(request, 'movies/movies_stuff.html', stuff_for_frontend)
+
 
 def create(request):
     if request.method == 'POST':
@@ -32,6 +34,7 @@ def create(request):
             messages.warning(request, 'You ran into an error while trying to add a new movie: {}'.format(e))
     return redirect('/')
 
+
 def edit(request, movie_id):
     if request.method == 'POST':
         data = {
@@ -48,6 +51,7 @@ def edit(request, movie_id):
             messages.warning(request, 'You ran into an error while trying to update a movie: {}'.format(e))
 
     return redirect('/')
+
 
 def delete(request, movie_id):
     try:
