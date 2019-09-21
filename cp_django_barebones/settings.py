@@ -130,6 +130,4 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
-
-# Forget SSL when using sqlite.
 del DATABASES['default']['OPTIONS']['sslmode']
