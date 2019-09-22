@@ -10,7 +10,6 @@ django-heroku==0.3.1
 gunicorn==19.9.0
 heroku==0.1.4
 idna==2.8
-pipenv==2018.11.26
 psycopg2==2.7.6.1
 pycparser==2.19
 pyOpenSSL==19.0.0
@@ -22,6 +21,4 @@ requests==2.22.0
 six==1.12.0
 sqlparse==0.3.0
 urllib3==1.25.3
-virtualenv==16.7.3
-virtualenv-clone==0.5.3
 whitenoise==4.1.3
