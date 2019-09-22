@@ -98,3 +98,4 @@ ENV/
 
 # Pipfile
 Pipfile
+Pipfile.lock
