@@ -96,6 +96,3 @@ ENV/
 # Ignore SQLite database
 *.sqlite3
 
-# Pipfile
-Pipfile
-Pipfile.lock
